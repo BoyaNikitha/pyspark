@@ -1,0 +1,168 @@
+# bash
+root@9020b6975ece:/# su takeo
+takeo@9020b6975ece:/$ cd
+takeo@9020b6975ece:~$ ls
+airflow       customer.txt  hive                installAll    jsdk       logs          pycharm                  spark
+bootcamp      data          hive_metastore.out  installs      kafka      non_part.txt  salesdetail_complex.csv  startApps
+customer.csv  hadoop        hiveserver2.out     installshive  keygen.sh  orders.csv    salesman.csv             test.txt
+takeo@9020b6975ece:~$ pycharm
+bash: pycharm: command not found
+takeo@9020b6975ece:~$ cd pycharm
+takeo@9020b6975ece:~/pycharm$ cd sparkprojects
+bash: cd: sparkprojects: No such file or directory
+takeo@9020b6975ece:~/pycharm$ pyspark
+Python 3.10.4 (main, Jun 29 2022, 12:14:53) [GCC 11.2.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+Welcome to
+      ____              __
+     / __/__  ___ _____/ /__
+    _\ \/ _ \/ _ `/ __/  '_/
+   /__ / .__/\_,_/_/ /_/\_\   version 3.3.0
+      /_/
+
+Using Python version 3.10.4 (main, Jun 29 2022 12:14:53)
+Spark context Web UI available at http://9020b6975ece:4040
+Spark context available as 'sc' (master = local[*], app id = local-1790798836516).
+SparkSession available as 'spark'.
+>>> ^M
+>>> simpleData = (("James", "Sales", 3000), \
+... ("Michael", "Sales", 4600),  \
+... ("Robert", "Sales", 4100),   \
+... ("Maria", "Finance", 3000),  \
+... ("James", "Sales", 3000),    \
+... ("Scott", "Finance", 3300),  \
+... ("Jen", "Finance", 3900),    \
+... ("Jeff", "Marketing", 3000), \
+... ("Kumar", "Marketing", 2000),\
+... ("Saif", "Sales", 4100))
+>>>  
+>>> columns= ["employee_name", "department", "salary"]
+>>> df = spark.createDataFrame(data = simpleData, schema = columns)
+>>> df.printSchema()
+root
+ |-- employee_name: string (nullable = true)
+ |-- department: string (nullable = true)
+ |-- salary: long (nullable = true)
+
+>>> df.show(truncate=False)
++-------------+----------+------+                                               
+|employee_name|department|salary|
++-------------+----------+------+
+|James        |Sales     |3000  |
+|Michael      |Sales     |4600  |
+|Robert       |Sales     |4100  |
+|Maria        |Finance   |3000  |
+|James        |Sales     |3000  |
+|Scott        |Finance   |3300  |
+|Jen          |Finance   |3900  |
+|Jeff         |Marketing |3000  |
+|Kumar        |Marketing |2000  |
+|Saif         |Sales     |4100  |
++-------------+----------+------+
+
+>>> 
+>>> 
+>>> 
+>>> from pyspark.sql.window import Window
+>>> from pyspark.sql.functions import row_number
+>>> windowSpec  = Window.partitionBy("department").orderBy("salary")
+>>> 
+>>> df.withColumn("row_number",row_number().over(windowSpec)).show(truncate=False)
++-------------+----------+------+----------+
+|employee_name|department|salary|row_number|
++-------------+----------+------+----------+
+|Maria        |Finance   |3000  |1         |
+|Scott        |Finance   |3300  |2         |
+|Jen          |Finance   |3900  |3         |
+|Kumar        |Marketing |2000  |1         |
+|Jeff         |Marketing |3000  |2         |
+|James        |Sales     |3000  |1         |
+|James        |Sales     |3000  |2         |
+|Robert       |Sales     |4100  |3         |
+|Saif         |Sales     |4100  |4         |
+|Michael      |Sales     |4600  |5         |
++-------------+----------+------+----------+
+
+>>> 
+>>> 
+>>> from pyspark.sql.functions import rank
+>>> df.withColumn("rank",rank().over(windowSpec)).show()
++-------------+----------+------+----+
+|employee_name|department|salary|rank|
++-------------+----------+------+----+
+|        Maria|   Finance|  3000|   1|
+|        Scott|   Finance|  3300|   2|
+|          Jen|   Finance|  3900|   3|
+|        Kumar| Marketing|  2000|   1|
+|         Jeff| Marketing|  3000|   2|
+|        James|     Sales|  3000|   1|
+|        James|     Sales|  3000|   1|
+|       Robert|     Sales|  4100|   3|
+|         Saif|     Sales|  4100|   3|
+|      Michael|     Sales|  4600|   5|
++-------------+----------+------+----+
+
+>>> rom pyspark.sql.functions import dense_rank
+  File "<stdin>", line 1
+    rom pyspark.sql.functions import dense_rank
+        ^^^^^^^
+SyntaxError: invalid syntax
+>>> df.withColumn("dense_rank",dense_rank().over(windowSpec)).show()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'dense_rank' is not defined
+>>> 
+>>> from pyspark.sql.functions import dense_rank
+>>> df.withColumn("dense_rank",dense_rank().over(windowSpec)).show()
++-------------+----------+------+----------+
+|employee_name|department|salary|dense_rank|
++-------------+----------+------+----------+
+|        Maria|   Finance|  3000|         1|
+|        Scott|   Finance|  3300|         2|
+|          Jen|   Finance|  3900|         3|
+|        Kumar| Marketing|  2000|         1|
+|         Jeff| Marketing|  3000|         2|
+|        James|     Sales|  3000|         1|
+|        James|     Sales|  3000|         1|
+|       Robert|     Sales|  4100|         2|
+|         Saif|     Sales|  4100|         2|
+|      Michael|     Sales|  4600|         3|
++-------------+----------+------+----------+
+
+>>> from pyspark.sql.functions import lag    
+>>> df.withColumn("lag",lag("salary",2).over(windowSpec)).show()
++-------------+----------+------+----+                                          
+|employee_name|department|salary| lag|
++-------------+----------+------+----+
+|        Maria|   Finance|  3000|null|
+|        Scott|   Finance|  3300|null|
+|          Jen|   Finance|  3900|3000|
+|        Kumar| Marketing|  2000|null|
+|         Jeff| Marketing|  3000|null|
+|        James|     Sales|  3000|null|
+|        James|     Sales|  3000|null|
+|       Robert|     Sales|  4100|3000|
+|         Saif|     Sales|  4100|3000|
+|      Michael|     Sales|  4600|4100|
++-------------+----------+------+----+
+
+>>> from pyspark.sql.functions import lead    
+>>> df.withColumn("lead",lead("salary",2).over(windowSpec)).show()
++-------------+----------+------+----+
+|employee_name|department|salary|lead|
++-------------+----------+------+----+
+|        Maria|   Finance|  3000|3900|
+|        Scott|   Finance|  3300|null|
+|          Jen|   Finance|  3900|null|
+|        Kumar| Marketing|  2000|null|
+|         Jeff| Marketing|  3000|null|
+|        James|     Sales|  3000|4100|
+|        James|     Sales|  3000|4100|
+|       Robert|     Sales|  4100|4600|
+|         Saif|     Sales|  4100|null|
+|      Michael|     Sales|  4600|null|
++-------------+----------+------+----+
+
+>>> 
