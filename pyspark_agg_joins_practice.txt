@@ -1,0 +1,598 @@
+# bash
+root@9020b6975ece:/# su takeo
+takeo@9020b6975ece:/$ cd
+takeo@9020b6975ece:~$ ls
+airflow       customer.txt  hive                installAll    jsdk       logs          pycharm                  spark
+bootcamp      data          hive_metastore.out  installs      kafka      non_part.txt  salesdetail_complex.csv  startApps
+customer.csv  hadoop        hiveserver2.out     installshive  keygen.sh  orders.csv    salesman.csv             test.txt
+takeo@9020b6975ece:~$ cd pycharm
+takeo@9020b6975ece:~/pycharm$ cd sparkproject 
+takeo@9020b6975ece:~/pycharm/sparkproject$ cd
+takeo@9020b6975ece:~$ spark
+bash: spark: command not found
+takeo@9020b6975ece:~$ pyspark
+Python 3.10.4 (main, Jun 29 2022, 12:14:53) [GCC 11.2.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+Welcome to
+      ____              __
+     / __/__  ___ _____/ /__
+    _\ \/ _ \/ _ `/ __/  '_/
+   /__ / .__/\_,_/_/ /_/\_\   version 3.3.0
+      /_/
+
+Using Python version 3.10.4 (main, Jun 29 2022 12:14:53)
+Spark context Web UI available at http://9020b6975ece:4040
+Spark context available as 'sc' (master = local[*], app id = local-1790294904492).
+SparkSession available as 'spark'.
+>>> import pyspark
+>>> 
+>>> from pyspark.sql.functions import expr
+>>> 
+>>> 
+>>> data = [("James", "Sales", 3000), \
+...     ("Michael", "Sales", 4600), \
+...     ("Robert", "Sales", 4100), \
+...     ("Maria", "Finance", 3000), \
+...     ("James", "Sales", 3000), \
+...     ("Scott", "Finance", 3300), \
+...     ("Jen", "Finance", 3900), \
+...     ("Jeff", "Marketing", 3000), \
+...     ("Kumar", "Marketing", 2000), \
+...     ("Saif", "Sales", 4100) \
+... columns= ["employee_name", "department", "salary"]
+  File "<stdin>", line 10
+    ("Saif", "Sales", 4100) \
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: invalid syntax. Perhaps you forgot a comma?
+>>> df = spark.createDataFrame(data = data, schema = columns)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'data' is not defined
+>>> df.printSchema()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'df' is not defined
+>>> df.show(truncate=False)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'df' is not defined
+>>> columns= ["employee_name", "department", "salary"]
+>>> df = spark.createDataFrame(data = data, schema = columns)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'data' is not defined
+>>> df.printSchema()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'df' is not defined
+>>> df.show(truncate=False)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'df' is not defined
+>>> 
+>>> import pyspark
+>>> 
+>>> from pyspark.sql.functions import expr
+>>> 
+>>> 
+>>> data = [("James", "Sales", 3000), \
+...     ("Michael", "Sales", 4600), \
+...     ("Robert", "Sales", 4100), \
+...     ("Maria", "Finance", 3000), \
+...     ("James", "Sales", 3000), \
+...     ("Scott", "Finance", 3300), \
+...     ("Jen", "Finance", 3900), \
+...     ("Jeff", "Marketing", 3000), \
+...     ("Kumar", "Marketing", 2000), \
+...     ("Saif", "Sales", 4100) \
+...   ]
+>>> columns= ["employee_name", "department", "salary"]
+>>> df = spark.createDataFrame(data = data, schema = columns)
+>>> df.printSchema()
+root
+ |-- employee_name: string (nullable = true)
+ |-- department: string (nullable = true)
+ |-- salary: long (nullable = true)
+
+>>> df.show(truncate=False)
++-------------+----------+------+                                               
+|employee_name|department|salary|
++-------------+----------+------+
+|James        |Sales     |3000  |
+|Michael      |Sales     |4600  |
+|Robert       |Sales     |4100  |
+|Maria        |Finance   |3000  |
+|James        |Sales     |3000  |
+|Scott        |Finance   |3300  |
+|Jen          |Finance   |3900  |
+|Jeff         |Marketing |3000  |
+|Kumar        |Marketing |2000  |
+|Saif         |Sales     |4100  |
++-------------+----------+------+
+
+>>> 
+>>> 
+>>> df.dropDuplicates().show()
++-------------+----------+------+                                               
+|employee_name|department|salary|
++-------------+----------+------+
+|        James|     Sales|  3000|
+|      Michael|     Sales|  4600|
+|       Robert|     Sales|  4100|
+|        Maria|   Finance|  3000|
+|        Scott|   Finance|  3300|
+|          Jen|   Finance|  3900|
+|         Jeff| Marketing|  3000|
+|        Kumar| Marketing|  2000|
+|         Saif|     Sales|  4100|
++-------------+----------+------+
+
+>>> df.dropDuplicates'salary']
+[1]+  Stopped                 pyspark
+takeo@9020b6975ece:~$ pyspark
+Python 3.10.4 (main, Jun 29 2022, 12:14:53) [GCC 11.2.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+Welcome to
+      ____              __
+     / __/__  ___ _____/ /__
+    _\ \/ _ \/ _ `/ __/  '_/
+   /__ / .__/\_,_/_/ /_/\_\   version 3.3.0
+      /_/
+
+Using Python version 3.10.4 (main, Jun 29 2022 12:14:53)
+Spark context Web UI available at http://9020b6975ece:4041
+Spark context available as 'sc' (master = local[*], app id = local-1790295330443).
+SparkSession available as 'spark'.
+>>> ^Mimport pyspark
+  File "<stdin>", line 1
+    
+    ^
+SyntaxError: multiple statements found while compiling a single statement
+>>> 
+>>> from pyspark.sql.functions import expr
+>>> 
+>>> 
+>>> data = [("James", "Sales", 3000), \
+...     ("Michael", "Sales", 4600), \
+...     ("Robert", "Sales", 4100), \
+...     ("Maria", "Finance", 3000), \
+...     ("James", "Sales", 3000), \
+...     ("Scott", "Finance", 3300), \
+...     ("Jen", "Finance", 3900), \
+...     ("Jeff", "Marketing", 3000), \
+...     ("Kumar", "Marketing", 2000), \
+...     ("Saif", "Sales", 4100) \
+...   ]
+>>> columns= ["employee_name", "department", "salary"]
+>>> df = spark.createDataFrame(data = data, schema = columns)
+>>> df.printSchema()
+root
+ |-- employee_name: string (nullable = true)
+ |-- department: string (nullable = true)
+ |-- salary: long (nullable = true)
+
+>>> df.show(truncate=False)
++-------------+----------+------+                                               
+|employee_name|department|salary|
++-------------+----------+------+
+|James        |Sales     |3000  |
+|Michael      |Sales     |4600  |
+|Robert       |Sales     |4100  |
+|Maria        |Finance   |3000  |
+|James        |Sales     |3000  |
+|Scott        |Finance   |3300  |
+|Jen          |Finance   |3900  |
+|Jeff         |Marketing |3000  |
+|Kumar        |Marketing |2000  |
+|Saif         |Sales     |4100  |
++-------------+----------+------+
+
+>>> 
+>>> 
+>>> df.dropDuplicates().show()
++-------------+----------+------+                                               
+|employee_name|department|salary|
++-------------+----------+------+
+|        James|     Sales|  3000|
+|      Michael|     Sales|  4600|
+|       Robert|     Sales|  4100|
+|        Maria|   Finance|  3000|
+|        Scott|   Finance|  3300|
+|          Jen|   Finance|  3900|
+|         Jeff| Marketing|  3000|
+|        Kumar| Marketing|  2000|
+|         Saif|     Sales|  4100|
++-------------+----------+------+
+
+>>> df.dropDuplicates(['department','salary']).show()
++-------------+----------+------+                                               
+|employee_name|department|salary|
++-------------+----------+------+
+|        Maria|   Finance|  3000|
+|        Scott|   Finance|  3300|
+|          Jen|   Finance|  3900|
+|        Kumar| Marketing|  2000|
+|         Jeff| Marketing|  3000|
+|        James|     Sales|  3000|
+|       Robert|     Sales|  4100|
+|      Michael|     Sales|  4600|
++-------------+----------+------+
+
+>>> 
+>>> simpleData = [("James","Sales","NY",90000,34,10000), \
+...     ("Michael","Sales","NY",86000,56,20000), \
+...     ("Robert","Sales","CA",81000,30,23000), \
+...     ("Maria","Finance","CA",90000,24,23000), \
+...     ("Raman","Finance","CA",99000,40,24000), \
+...     ("Scott","Finance","NY",83000,36,19000), \
+...     ("Jen","Finance","NY",79000,53,15000), \
+...     ("Jeff","Marketing","CA",80000,25,18000), \
+...     ("Kumar","Marketing","NY",91000,50,21000) \
+...   ]
+>>> columns= ["employee_name","department","state","salary","age","bonus"]
+>>> df = spark.createDataFrame(data = simpleData, schema = columns)
+>>> df.printSchema()
+root
+ |-- employee_name: string (nullable = true)
+ |-- department: string (nullable = true)
+ |-- state: string (nullable = true)
+ |-- salary: long (nullable = true)
+ |-- age: long (nullable = true)
+ |-- bonus: long (nullable = true)
+
+>>> df.show(truncate=False)
++-------------+----------+-----+------+---+-----+                               
+|employee_name|department|state|salary|age|bonus|
++-------------+----------+-----+------+---+-----+
+|James        |Sales     |NY   |90000 |34 |10000|
+|Michael      |Sales     |NY   |86000 |56 |20000|
+|Robert       |Sales     |CA   |81000 |30 |23000|
+|Maria        |Finance   |CA   |90000 |24 |23000|
+|Raman        |Finance   |CA   |99000 |40 |24000|
+|Scott        |Finance   |NY   |83000 |36 |19000|
+|Jen          |Finance   |NY   |79000 |53 |15000|
+|Jeff         |Marketing |CA   |80000 |25 |18000|
+|Kumar        |Marketing |NY   |91000 |50 |21000|
++-------------+----------+-----+------+---+-----+
+
+>>> 
+>>> 
+>>> from pyspark.sql.functions import col
+>>> df.sort('department','state')show(truncate=False)
+  File "<stdin>", line 1
+    df.sort('department','state')show(truncate=False)
+                                 ^^^^
+SyntaxError: invalid syntax
+>>> df.sort('department','state').show(truncate=False)
++-------------+----------+-----+------+---+-----+                               
+|employee_name|department|state|salary|age|bonus|
++-------------+----------+-----+------+---+-----+
+|Maria        |Finance   |CA   |90000 |24 |23000|
+|Raman        |Finance   |CA   |99000 |40 |24000|
+|Scott        |Finance   |NY   |83000 |36 |19000|
+|Jen          |Finance   |NY   |79000 |53 |15000|
+|Jeff         |Marketing |CA   |80000 |25 |18000|
+|Kumar        |Marketing |NY   |91000 |50 |21000|
+|Robert       |Sales     |CA   |81000 |30 |23000|
+|Michael      |Sales     |NY   |86000 |56 |20000|
+|James        |Sales     |NY   |90000 |34 |10000|
++-------------+----------+-----+------+---+-----+
+
+>>> df.sort(col("department"),col("state")).show(truncate=False)
++-------------+----------+-----+------+---+-----+
+|employee_name|department|state|salary|age|bonus|
++-------------+----------+-----+------+---+-----+
+|Raman        |Finance   |CA   |99000 |40 |24000|
+|Maria        |Finance   |CA   |90000 |24 |23000|
+|Jen          |Finance   |NY   |79000 |53 |15000|
+|Scott        |Finance   |NY   |83000 |36 |19000|
+|Jeff         |Marketing |CA   |80000 |25 |18000|
+|Kumar        |Marketing |NY   |91000 |50 |21000|
+|Robert       |Sales     |CA   |81000 |30 |23000|
+|James        |Sales     |NY   |90000 |34 |10000|
+|Michael      |Sales     |NY   |86000 |56 |20000|
++-------------+----------+-----+------+---+-----+
+
+>>> 
+>>> df.orderBy("department","state").show(truncate=False)
++-------------+----------+-----+------+---+-----+
+|employee_name|department|state|salary|age|bonus|
++-------------+----------+-----+------+---+-----+
+|Maria        |Finance   |CA   |90000 |24 |23000|
+|Raman        |Finance   |CA   |99000 |40 |24000|
+|Jen          |Finance   |NY   |79000 |53 |15000|
+|Scott        |Finance   |NY   |83000 |36 |19000|
+|Jeff         |Marketing |CA   |80000 |25 |18000|
+|Kumar        |Marketing |NY   |91000 |50 |21000|
+|Robert       |Sales     |CA   |81000 |30 |23000|
+|Michael      |Sales     |NY   |86000 |56 |20000|
+|James        |Sales     |NY   |90000 |34 |10000|
++-------------+----------+-----+------+---+-----+
+
+>>> df.sort(df.department.asc(),df.state.asc()).show(truncate=False)
++-------------+----------+-----+------+---+-----+
+|employee_name|department|state|salary|age|bonus|
++-------------+----------+-----+------+---+-----+
+|Maria        |Finance   |CA   |90000 |24 |23000|
+|Raman        |Finance   |CA   |99000 |40 |24000|
+|Jen          |Finance   |NY   |79000 |53 |15000|
+|Scott        |Finance   |NY   |83000 |36 |19000|
+|Jeff         |Marketing |CA   |80000 |25 |18000|
+|Kumar        |Marketing |NY   |91000 |50 |21000|
+|Robert       |Sales     |CA   |81000 |30 |23000|
+|Michael      |Sales     |NY   |86000 |56 |20000|
+|James        |Sales     |NY   |90000 |34 |10000|
++-------------+----------+-----+------+---+-----+
+
+>>> df.sort(df.department.asc(),df.state.desc()).show(truncate=False)
++-------------+----------+-----+------+---+-----+
+|employee_name|department|state|salary|age|bonus|
++-------------+----------+-----+------+---+-----+
+|Jen          |Finance   |NY   |79000 |53 |15000|
+|Scott        |Finance   |NY   |83000 |36 |19000|
+|Maria        |Finance   |CA   |90000 |24 |23000|
+|Raman        |Finance   |CA   |99000 |40 |24000|
+|Kumar        |Marketing |NY   |91000 |50 |21000|
+|Jeff         |Marketing |CA   |80000 |25 |18000|
+|James        |Sales     |NY   |90000 |34 |10000|
+|Michael      |Sales     |NY   |86000 |56 |20000|
+|Robert       |Sales     |CA   |81000 |30 |23000|
++-------------+----------+-----+------+---+-----+
+
+>>> 
+>>> simpleData = [("James","Sales","NY",90000,34,10000),
+...     ("Michael","Sales","NY",86000,56,20000),
+...     ("Robert","Sales","CA",81000,30,23000),
+...     ("Maria","Finance","CA",90000,24,23000),
+...     ("Raman","Finance","CA",99000,40,24000),
+...     ("Scott","Finance","NY",83000,36,19000),
+...     ("Jen","Finance","NY",79000,53,15000),
+...     ("Jeff","Marketing","CA",80000,25,18000),
+...     ("Kumar","Marketing","NY",91000,50,21000)
+...   ]
+>>> 
+>>> schema = ["employee_name","department","state","salary","age","bonus"]
+>>> df = spark.createDataFrame(data=simpleData, schema = schema)
+>>> df.printSchema()
+root
+ |-- employee_name: string (nullable = true)
+ |-- department: string (nullable = true)
+ |-- state: string (nullable = true)
+ |-- salary: long (nullable = true)
+ |-- age: long (nullable = true)
+ |-- bonus: long (nullable = true)
+
+>>> df.show(truncate=False)
++-------------+----------+-----+------+---+-----+                               
+|employee_name|department|state|salary|age|bonus|
++-------------+----------+-----+------+---+-----+
+|James        |Sales     |NY   |90000 |34 |10000|
+|Michael      |Sales     |NY   |86000 |56 |20000|
+|Robert       |Sales     |CA   |81000 |30 |23000|
+|Maria        |Finance   |CA   |90000 |24 |23000|
+|Raman        |Finance   |CA   |99000 |40 |24000|
+|Scott        |Finance   |NY   |83000 |36 |19000|
+|Jen          |Finance   |NY   |79000 |53 |15000|
+|Jeff         |Marketing |CA   |80000 |25 |18000|
+|Kumar        |Marketing |NY   |91000 |50 |21000|
++-------------+----------+-----+------+---+-----+
+
+>>> 
+>>> 
+>>> df.groupBy("department").sum("salary").show(truncate=False)
++----------+-----------+                                                        
+|department|sum(salary)|
++----------+-----------+
+|Sales     |257000     |
+|Finance   |351000     |
+|Marketing |171000     |
++----------+-----------+
+
+>>> df.groupBy("department").count().show()
++----------+-----+                                                              
+|department|count|
++----------+-----+
+|     Sales|    3|
+|   Finance|    4|
+| Marketing|    2|
++----------+-----+
+
+>>> df.groupBy("department").min("salary").show()
++----------+-----------+
+|department|min(salary)|
++----------+-----------+
+|     Sales|      81000|
+|   Finance|      79000|
+| Marketing|      80000|
++----------+-----------+
+
+>>> GroupBy on multiple columns
+  File "<stdin>", line 1
+    GroupBy on multiple columns
+            ^^
+SyntaxError: invalid syntax
+>>> df.groupBy("department","state") \
+...     .sum("salary","bonus") \
+...     .show()
++----------+-----+-----------+----------+                                       
+|department|state|sum(salary)|sum(bonus)|
++----------+-----+-----------+----------+
+|     Sales|   NY|     176000|     30000|
+|     Sales|   CA|      81000|     23000|
+|   Finance|   CA|     189000|     47000|
+|   Finance|   NY|     162000|     34000|
+| Marketing|   CA|      80000|     18000|
+| Marketing|   NY|      91000|     21000|
++----------+-----+-----------+----------+
+
+>>> 
+>>> from pyspark.sql.functions import sum,avg,max,min,mean,count
+>>> 
+>>> df.groupBy("department") \
+...     .agg(sum("salary").alias("sum_salary"), \
+...          avg("salary").alias("avg_salary"), \
+...          sum("bonus").alias("sum_bonus"), \
+...          max("bonus").alias("max_bonus") \
+...      ) \
+...     .show(truncate=False)
++----------+----------+-----------------+---------+---------+                   
+|department|sum_salary|avg_salary       |sum_bonus|max_bonus|
++----------+----------+-----------------+---------+---------+
+|Sales     |257000    |85666.66666666667|53000    |23000    |
+|Finance   |351000    |87750.0          |81000    |24000    |
+|Marketing |171000    |85500.0          |39000    |21000    |
++----------+----------+-----------------+---------+---------+
+
+>>> df.groupBy("department") \
+...     .agg(sum("salary").alias("sum_salary"), \
+...       avg("salary").alias("avg_salary"), \
+...       sum("bonus").alias("sum_bonus"), \
+...       max("bonus").alias("max_bonus")) \
+...     .where(col("sum_bonus") >= 50000) \
+...     .show(truncate=False)
++----------+----------+-----------------+---------+---------+                   
+|department|sum_salary|avg_salary       |sum_bonus|max_bonus|
++----------+----------+-----------------+---------+---------+
+|Sales     |257000    |85666.66666666667|53000    |23000    |
+|Finance   |351000    |87750.0          |81000    |24000    |
++----------+----------+-----------------+---------+---------+
+
+>>> emp = [(1,"Smith",-1,"2018","10","M",3000), \
+...     (2,"Rose",1,"2010","20","M",4000), \
+...     (3,"Williams",1,"2010","10","M",1000), \
+...     (4,"Jones",2,"2005","10","F",2000), \
+...     (5,"Brown",2,"2010","40","",-1), \
+...       (6,"Brown",2,"2010","50","",-1) \
+...   ]
+>>> empColumns = ["emp_id","name","superior_emp_id","year_joined", \
+...        "emp_dept_id","gender","salary"]
+>>> empDF = spark.createDataFrame(data=emp, schema = empColumns)
+>>> empDF.printSchema()
+root
+ |-- emp_id: long (nullable = true)
+ |-- name: string (nullable = true)
+ |-- superior_emp_id: long (nullable = true)
+ |-- year_joined: string (nullable = true)
+ |-- emp_dept_id: string (nullable = true)
+ |-- gender: string (nullable = true)
+ |-- salary: long (nullable = true)
+
+>>> empDF.show(truncate=False)
++------+--------+---------------+-----------+-----------+------+------+
+|emp_id|name    |superior_emp_id|year_joined|emp_dept_id|gender|salary|
++------+--------+---------------+-----------+-----------+------+------+
+|1     |Smith   |-1             |2018       |10         |M     |3000  |
+|2     |Rose    |1              |2010       |20         |M     |4000  |
+|3     |Williams|1              |2010       |10         |M     |1000  |
+|4     |Jones   |2              |2005       |10         |F     |2000  |
+|5     |Brown   |2              |2010       |40         |      |-1    |
+|6     |Brown   |2              |2010       |50         |      |-1    |
++------+--------+---------------+-----------+-----------+------+------+
+
+>>> dept = [("Finance",10), \
+...     ("Marketing",20), \
+...     ("Sales",30), \
+...     ("IT",40) \
+...   ]
+>>> deptColumns = ["dept_name","dept_id"]
+>>> deptDF = spark.createDataFrame(data=dept, schema = deptColumns)
+>>> deptDF.printSchema()
+root
+ |-- dept_name: string (nullable = true)
+ |-- dept_id: long (nullable = true)
+
+>>> deptDF.show(truncate=False)
++---------+-------+
+|dept_name|dept_id|
++---------+-------+
+|Finance  |10     |
+|Marketing|20     |
+|Sales    |30     |
+|IT       |40     |
++---------+-------+
+
+>>> 
+>>> empDF.join(deptDF,empDF.emp_dept_id ==  deptDF.dept_id,"inner") \
+...      .show(truncate=False)
++------+--------+---------------+-----------+-----------+------+------+---------+-------+
+|emp_id|name    |superior_emp_id|year_joined|emp_dept_id|gender|salary|dept_name|dept_id|
++------+--------+---------------+-----------+-----------+------+------+---------+-------+
+|1     |Smith   |-1             |2018       |10         |M     |3000  |Finance  |10     |
+|3     |Williams|1              |2010       |10         |M     |1000  |Finance  |10     |
+|4     |Jones   |2              |2005       |10         |F     |2000  |Finance  |10     |
+|2     |Rose    |1              |2010       |20         |M     |4000  |Marketing|20     |
+|5     |Brown   |2              |2010       |40         |      |-1    |IT       |40     |
++------+--------+---------------+-----------+-----------+------+------+---------+-------+
+
+>>> empDF.join(deptDF,empDF.emp_dept_id ==  deptDF.dept_id,"outer") \
+...     .show(truncate=False)
++------+--------+---------------+-----------+-----------+------+------+---------+-------+
+|emp_id|name    |superior_emp_id|year_joined|emp_dept_id|gender|salary|dept_name|dept_id|
++------+--------+---------------+-----------+-----------+------+------+---------+-------+
+|1     |Smith   |-1             |2018       |10         |M     |3000  |Finance  |10     |
+|3     |Williams|1              |2010       |10         |M     |1000  |Finance  |10     |
+|4     |Jones   |2              |2005       |10         |F     |2000  |Finance  |10     |
+|2     |Rose    |1              |2010       |20         |M     |4000  |Marketing|20     |
+|null  |null    |null           |null       |null       |null  |null  |Sales    |30     |
+|5     |Brown   |2              |2010       |40         |      |-1    |IT       |40     |
+|6     |Brown   |2              |2010       |50         |      |-1    |null     |null   |
++------+--------+---------------+-----------+-----------+------+------+---------+-------+
+
+>>> empDF.join(deptDF,empDF.emp_dept_id ==  deptDF.dept_id,"full") \
+...     .show(truncate=False)
++------+--------+---------------+-----------+-----------+------+------+---------+-------+
+|emp_id|name    |superior_emp_id|year_joined|emp_dept_id|gender|salary|dept_name|dept_id|
++------+--------+---------------+-----------+-----------+------+------+---------+-------+
+|1     |Smith   |-1             |2018       |10         |M     |3000  |Finance  |10     |
+|3     |Williams|1              |2010       |10         |M     |1000  |Finance  |10     |
+|4     |Jones   |2              |2005       |10         |F     |2000  |Finance  |10     |
+|2     |Rose    |1              |2010       |20         |M     |4000  |Marketing|20     |
+|null  |null    |null           |null       |null       |null  |null  |Sales    |30     |
+|5     |Brown   |2              |2010       |40         |      |-1    |IT       |40     |
+|6     |Brown   |2              |2010       |50         |      |-1    |null     |null   |
++------+--------+---------------+-----------+-----------+------+------+---------+-------+
+
+>>> empDF.join(deptDF,empDF.emp_dept_id ==  deptDF.dept_id,"fullouter") \
+...     .show(truncate=False)
++------+--------+---------------+-----------+-----------+------+------+---------+-------+
+|emp_id|name    |superior_emp_id|year_joined|emp_dept_id|gender|salary|dept_name|dept_id|
++------+--------+---------------+-----------+-----------+------+------+---------+-------+
+|1     |Smith   |-1             |2018       |10         |M     |3000  |Finance  |10     |
+|3     |Williams|1              |2010       |10         |M     |1000  |Finance  |10     |
+|4     |Jones   |2              |2005       |10         |F     |2000  |Finance  |10     |
+|2     |Rose    |1              |2010       |20         |M     |4000  |Marketing|20     |
+|null  |null    |null           |null       |null       |null  |null  |Sales    |30     |
+|5     |Brown   |2              |2010       |40         |      |-1    |IT       |40     |
+|6     |Brown   |2              |2010       |50         |      |-1    |null     |null   |
++------+--------+---------------+-----------+-----------+------+------+---------+-------+
+
+>>> empDF.join(deptDF,empDF.emp_dept_id ==  deptDF.dept_id,"left") \
+...     .show(truncate=False)
++------+--------+---------------+-----------+-----------+------+------+---------+-------+
+|emp_id|name    |superior_emp_id|year_joined|emp_dept_id|gender|salary|dept_name|dept_id|
++------+--------+---------------+-----------+-----------+------+------+---------+-------+
+|1     |Smith   |-1             |2018       |10         |M     |3000  |Finance  |10     |
+|2     |Rose    |1              |2010       |20         |M     |4000  |Marketing|20     |
+|3     |Williams|1              |2010       |10         |M     |1000  |Finance  |10     |
+|4     |Jones   |2              |2005       |10         |F     |2000  |Finance  |10     |
+|5     |Brown   |2              |2010       |40         |      |-1    |IT       |40     |
+|6     |Brown   |2              |2010       |50         |      |-1    |null     |null   |
++------+--------+---------------+-----------+-----------+------+------+---------+-------+
+
+>>> 
+>>> empDF.join(deptDF,empDF.emp_dept_id ==  deptDF.dept_id,"leftouter
+  File "<stdin>", line 1
+    empDF.join(deptDF,empDF.emp_dept_id ==  deptDF.dept_id,"leftouter
+                                                           ^
+SyntaxError: unterminated string literal (detected at line 1)
+>>> ") \
+...     .show(truncate=False)
+  File "<stdin>", line 1
+    ") \
+    ^
+SyntaxError: unterminated string literal (detected at line 2)
+>>> 
