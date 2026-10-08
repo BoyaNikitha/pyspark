@@ -1,0 +1,157 @@
+# bash
+root@f40e1fbed35e:/# su takeo
+takeo@f40e1fbed35e:/$ cd
+takeo@f40e1fbed35e:~$ ls
+airflow       customerss.csv  hive_metastore.out  installshive  logs          sales.csv                startApps
+bootcamp      data            hiveserver2.out     jsdk          non_part.txt  salesdetail_complex.csv  stores.csv
+customer.csv  hadoop          installAll          kafka         orders.csv    salesman.csv
+customer.txt  hive            installs            keygen.sh     products.csv  spark
+takeo@f40e1fbed35e:~$ pycharm
+bash: pycharm: command not found
+takeo@f40e1fbed35e:~$ spark 
+bash: spark: command not found
+takeo@f40e1fbed35e:~$ cd spark
+takeo@f40e1fbed35e:~/spark$ pyspark
+Python 3.10.4 (main, Jun 29 2022, 12:14:53) [GCC 11.2.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+Welcome to
+      ____              __
+     / __/__  ___ _____/ /__
+    _\ \/ _ \/ _ `/ __/  '_/
+   /__ / .__/\_,_/_/ /_/\_\   version 3.3.0
+      /_/
+
+Using Python version 3.10.4 (main, Jun 29 2022 12:14:53)
+Spark context Web UI available at http://f40e1fbed35e:4040
+Spark context available as 'sc' (master = local[*], app id = local-1791468655767).
+SparkSession available as 'spark'.
+>>> data = [
+...     (1, "iPhone 15", "Apple", 799),
+...     (2, "Galaxy S24", "Samsung", 899),
+...     (3, "Pixel 8", "Google", 699),
+...     (4, "iPhone 15 Pro", "Apple", 999),
+...     (5, "Galaxy S24 Ultra", "Samsung", 1199)
+... ]
+>>> 
+>>> columns = ["id", "product", "brand", "price"]
+>>> 
+>>> df = spark.createDataFrame(data, columns)
+>>> df.show()
++---+----------------+-------+-----+                                            
+| id|         product|  brand|price|
++---+----------------+-------+-----+
+|  1|       iPhone 15|  Apple|  799|
+|  2|      Galaxy S24|Samsung|  899|
+|  3|         Pixel 8| Google|  699|
+|  4|   iPhone 15 Pro|  Apple|  999|
+|  5|Galaxy S24 Ultra|Samsung| 1199|
++---+----------------+-------+-----+
+
+>>> df.show(product,price)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'product' is not defined
+>>> df.select("product","price").show()
++----------------+-----+
+|         product|price|
++----------------+-----+
+|       iPhone 15|  799|
+|      Galaxy S24|  899|
+|         Pixel 8|  699|
+|   iPhone 15 Pro|  999|
+|Galaxy S24 Ultra| 1199|
++----------------+-----+
+
+>>> #Show only Samsung products.
+>>> df.filter(df.brand="samsung").show()
+  File "<stdin>", line 1
+    df.filter(df.brand="samsung").show()
+              ^^^^^^^^^
+SyntaxError: expression cannot contain assignment, perhaps you meant "=="?
+>>> df.filter(df.brand=="samsung").show()
++---+-------+-----+-----+
+| id|product|brand|price|
++---+-------+-----+-----+
++---+-------+-----+-----+
+
+>>> df.filter(df.brand == "samsung").show()
++---+-------+-----+-----+
+| id|product|brand|price|
++---+-------+-----+-----+
++---+-------+-----+-----+
+
+>>> 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/pyspark/context.py", line 363, in signal_handler
+    raise KeyboardInterrupt()
+KeyboardInterrupt
+>>> df.filter(df.brand == "Samsung").show()
++---+----------------+-------+-----+
+| id|         product|  brand|price|
++---+----------------+-------+-----+
+|  2|      Galaxy S24|Samsung|  899|
+|  5|Galaxy S24 Ultra|Samsung| 1199|
++---+----------------+-------+-----+
+
+>>> #Show products costing more than $900.
+>>> df.filter(df.price > "900").show()
++---+----------------+-------+-----+
+| id|         product|  brand|price|
++---+----------------+-------+-----+
+|  4|   iPhone 15 Pro|  Apple|  999|
+|  5|Galaxy S24 Ultra|Samsung| 1199|
++---+----------------+-------+-----+
+
+>>> #Find the average price for each brand.
+>>> from  pyspark.sql.functions import avg
+>>> df.agg(avg("price")alias("avg_price")).show()
+  File "<stdin>", line 1
+    df.agg(avg("price")alias("avg_price")).show()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: invalid syntax. Perhaps you forgot a comma?
+>>> df.agg(avg("price"),alias("avg_price")).show()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'alias' is not defined
+>>> df.groupBy('brand').agg(avg('price').alias('avg_price')).show()
++-------+---------+                                                             
+|  brand|avg_price|
++-------+---------+
+|  Apple|    899.0|
+|Samsung|   1049.0|
+| Google|    699.0|
++-------+---------+
+
+>>> #Find the number of products for each brand.
+>>> df.groupBy(brand).agg(count("*").alias("product_count")).show()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'brand' is not defined
+>>> df.groupBy("brand").agg(count("*").alias("product_count")).show()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'count' is not defined. Did you mean: 'round'?
+>>> 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/pyspark/context.py", line 363, in signal_handler
+    raise KeyboardInterrupt()
+KeyboardInterrupt
+>>> 
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/pyspark/context.py", line 363, in signal_handler
+    raise KeyboardInterrupt()
+KeyboardInterrupt
+>>> from pyspark.sql.functions import count
+>>> from pyspark.sql.functions import count
+>>> df.groupBy("brand").agg(count("*").alias("product_count")).show()
++-------+-------------+
+|  brand|product_count|
++-------+-------------+
+|  Apple|            2|
+|Samsung|            2|
+| Google|            1|
++-------+-------------+
+
+>>> 
